@@ -1,6 +1,7 @@
 import os
 from .config import OPENAI_API_KEY, OPEN_ROUTER_API_KEY
 from .models import Website, LLM
+import re
 
 def check_api_keys():
     if not (OPENAI_API_KEY):
@@ -33,4 +34,4 @@ def to_markdown(content: str, filename:str = "brochure.md", path: str = "./outpu
         os.makedirs(path)
     
     with open(os.path.join(path, filename), "w") as f:
-        f.write(content)
+        f.write(re.sub(r"```(?:markdown)?", "", content))
